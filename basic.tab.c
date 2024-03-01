@@ -448,7 +448,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   7
+#define YYLAST   6
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  9
@@ -548,7 +548,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -4,    -5,     4,    -6,     0,    -6,     1,    -6
+      -3,    -4,    -5,     4,    -6,     0,    -6,    -1,    -6
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -576,19 +576,19 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     2,     4,     5,     6,     7,     0,     8
+       1,     2,     4,     5,     6,     7,     8
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     6,     8,     0,     5,    -1,     6
+       3,     4,     6,     8,     0,     5,     7
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,    10,     6,     8,     0,     5,     6
+       0,     3,     4,    10,     6,     8,     0,     5,     7
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */

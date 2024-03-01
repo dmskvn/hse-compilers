@@ -37,7 +37,7 @@ void yyerror(const char *s);
 
 program:
 	PRINT INTEGER		{}
-	| LET VARNAME EQUAL INTEGER
+	| LET VARNAME EQUAL DOUBLE
 ;
 
 %%

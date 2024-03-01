@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 all: basic.tab.c lex.yy.c \
-		basic.h basic.cpp
+		expr.h basic.h basic.cpp double.h double.cpp let.h let.cpp 
 	g++ -std=c++11 basic.tab.c lex.yy.c basic.cpp -o basic
 
 basic.tab.c: basic.y basic.h
