@@ -1,13 +1,16 @@
 #include "basic.h"
 #include "let.h"
 
-Let::Let(char *name, const Double *expr)
+#include <iostream>
+
+Let::Let(char *name, double expr)
 :_name(name),
 _expr(expr)
 {}
 
-void Let::execute() const
+void Let::exec() const
 {
-    Basic::instance()->crete(name);
-    Basic::instance()->assign(name, _expr->value());
+    std::cout << "!! EXECING LET " << std::endl;
+    Basic::instance()->create(_name);
+    Basic::instance()->assign(_name, _expr);
 }

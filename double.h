@@ -1,4 +1,5 @@
-#pragma once
+#ifndef double_h
+#define double_h
 
 #include "expr.h"
 
@@ -7,14 +8,16 @@ public:
 
 	Double(const char* name, double d);
 
-	virtual std::string type() override const;	
+	virtual std::string type() const override;	
 
-	virtual std::string asString() override const;	
-	virtual int asInt() override const;
-    virtual double asDouble() override const;
+	virtual std::string asString() const override;	
+	virtual int asInt() const override;
+    virtual double asDouble() const override;
 	
 private:
 	
 	std::string _name;
 	double _d;
 };
+
+#endif

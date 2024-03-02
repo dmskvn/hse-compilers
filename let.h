@@ -1,13 +1,18 @@
+#ifndef let_h
+#define let_h
+
+#include "double.h"
 #include "program.h"
 
 class Let : public IProgram {
 public:
-	Let(char *name, const Double *expr);
-	~Let();	
 
-	void execute() const;
+	Let(char *name, double expr);
+	virtual void exec() const override;
 	
 private:
 	std::string _name;
-	const Double *_expr;
+	const double _expr;
 };
+
+#endif

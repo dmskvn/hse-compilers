@@ -8,6 +8,8 @@
 
 #define YY_DECL extern "C" int yylex()
 
+class IProgram;
+
 #include "basic.tab.h"
 
 %}
@@ -17,12 +19,18 @@ DIGIT [0-9]
 
 %%
 
+(({DIGIT}+"."?)|("."{DIGIT}+)){DIGIT}*(E-?{DIGIT}+)?	{ std::cout << "L DOUBLE" << std::endl; yylval.dVal = atof(yytext); return DOUBLE; }
+
 [ \t]+	;
-{ALPHA}{DIGIT}?	{ yylval.sVal = strdup(yytext); return VARNAME; }
+\n              { return ENDL; }
+{ALPHA}{DIGIT}?	{ std::cout << "L VARNAME" << std::endl; yylval.sVal = strdup(yytext); return VARNAME; }
 {DIGIT}+		{ yylval.iVal = atoi(yytext); return INTEGER; }
 PRINT			{ return PRINT; }
-LET				{ return LET; }
-\=				{ return EQUAL; }
+LET				{ std::cout << "L LET" << std::endl; return LET; }
+LIST			{ return LIST; }
+LOAD			{ return LOAD; }
+EXEC			{ return EXEC; }
+\=				{ std::cout << "L EQUAL" << std::endl; return EQUAL; }
 .	;
 
 %%
