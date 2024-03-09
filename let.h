@@ -8,7 +8,7 @@ class Let : public IProgram {
 public:
 
 	Let(char *name, double expr);
-	virtual void exec() const override;
+	virtual void exec() override;
 	
 private:
 	std::string _name;

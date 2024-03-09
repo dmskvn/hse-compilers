@@ -7,7 +7,7 @@ Print::Print(char* varname)
 :_varname(varname)
 {}
 
-void Print::exec() const
+void Print::exec()
 {
     std::cout << "------- PRINT: VAR: " << _varname << "-------" << std::endl;
     const auto exists = Basic::instance()->exists(_varname);

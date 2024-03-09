@@ -8,7 +8,7 @@ Let::Let(char *name, double expr)
 _expr(expr)
 {}
 
-void Let::exec() const
+void Let::exec()
 {
     std::cout << "!! EXECING LET " << std::endl;
     Basic::instance()->create(_name);

@@ -83,21 +83,48 @@ double Basic::value(std::string varname) const
 	return _variables.at(varname).second;
 }
 
+std::size_t Basic::getExecutingLine() const
+{
+	return _executingLine; 
+}
+
+void Basic::setExecutingLine(std::size_t executingLine)
+{
+	_executingLine = executingLine;
+}
+
+IProgram* Basic::getProgram(std::size_t line) const
+{
+	return _programs[_executingLine];
+}
+
+void Basic::pushIf(std::size_t ifc)
+{
+	_if.push({ifc, 0});
+}
+
+void Basic::addElse(std::size_t elsec)
+{
+	_if.top()._else = elsec;
+}
+
+Basic::IfCompilation Basic::topIfElse()
+{
+	return _if.top();
+}
+
+void Basic::popIfElse()
+{
+	_if.pop();
+}
+
 void Basic::load()
 {
 	std::cout << "Program to load: " << std::endl;
 	std::string fileName;
 	std::cin >> fileName;
-	yyin = fopen (fileName.c_str(), "r");
 
-	// char filename[100], c; 
-  
-    // c = fgetc(yyin); 
-    // while (c != EOF) 
-    // { 
-    //     printf ("%c", c); 
-    //     c = fgetc(yyin); 
-    // } 
+	yyin = fopen(fileName.c_str(), "r");
 
 	if(!yyin){
 		std::cout << "ERROR: could not read file: " << fileName << std::endl;
@@ -112,8 +139,20 @@ void Basic::load()
 void Basic::exec()
 {
 	std::cout << "---- EXECING " << std::endl;
-	for(const auto& program : _programs)
+
+	for(;_executingLine < _programs.size(); ++_executingLine)
 	{
-		program->exec();
+		_programs[_executingLine]->exec();
 	}
 }
+
+// void Basic::aquireIdleMode()
+// {
+// 	_idle = true;
+// }
+
+// void Basic::releaseIdleMode()
+// {
+// 	_idle = false;
+// }
+	

@@ -1,8 +1,10 @@
 .PHONY: all clean
 
 all: basic.tab.c lex.yy.c \
-		program.h expr.h basic.h basic.cpp double.h double.cpp let.h let.cpp print.h print.cpp 
-	g++ -std=c++17 basic.tab.c lex.yy.c basic.cpp let.cpp print.cpp -o basic
+		program.h expr.h endif.h ifthen.h else.h basic.h let.h print.h  \
+		basic.cpp else.cpp double.h double.cpp let.cpp print.cpp \
+		endif.cpp ifthen.cpp
+	g++ -std=c++17 basic.tab.c lex.yy.c basic.cpp let.cpp print.cpp else.cpp endif.cpp ifthen.cpp -o basic
 
 basic.tab.c: basic.y basic.h
 	bison -d basic.y
