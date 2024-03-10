@@ -57,13 +57,22 @@ extern int yydebug;
     PRINT = 258,                   /* PRINT  */
     LET = 259,                     /* LET  */
     EQUAL = 260,                   /* EQUAL  */
-    EXEC = 261,                    /* EXEC  */
-    LOAD = 262,                    /* LOAD  */
-    ENDL = 263,                    /* ENDL  */
-    LIST = 264,                    /* LIST  */
-    INTEGER = 265,                 /* INTEGER  */
-    DOUBLE = 266,                  /* DOUBLE  */
-    VARNAME = 267                  /* VARNAME  */
+    LESS = 261,                    /* LESS  */
+    GREATER = 262,                 /* GREATER  */
+    LESSEQUAL = 263,               /* LESSEQUAL  */
+    GREATEREQUAL = 264,            /* GREATEREQUAL  */
+    NOTEQUAL = 265,                /* NOTEQUAL  */
+    EXEC = 266,                    /* EXEC  */
+    LOAD = 267,                    /* LOAD  */
+    ENDL = 268,                    /* ENDL  */
+    LIST = 269,                    /* LIST  */
+    IF = 270,                      /* IF  */
+    ELSE = 271,                    /* ELSE  */
+    END = 272,                     /* END  */
+    THEN = 273,                    /* THEN  */
+    INTEGER = 274,                 /* INTEGER  */
+    DOUBLE = 275,                  /* DOUBLE  */
+    VARNAME = 276                  /* VARNAME  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -72,14 +81,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "basic.y"
+#line 29 "basic.y"
 
 	int iVal;
 	double dVal;
-	char* sVal;
 	IProgram *progVal;
+	char *sVal;
 
-#line 83 "basic.tab.h"
+#line 92 "basic.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

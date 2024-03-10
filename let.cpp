@@ -6,11 +6,18 @@
 Let::Let(char *name, double expr)
 :_name(name),
 _expr(expr)
-{}
+{
+    std::cout << "Let ctor. " << this << "Name"  << name << " val " << expr << std::endl;
+}
 
 void Let::exec()
 {
-    std::cout << "!! EXECING LET " << std::endl;
+    std::cout << "!! EXECING LET " << this << _name << " " << _expr << std::endl;
     Basic::instance()->create(_name);
     Basic::instance()->assign(_name, _expr);
+}
+
+Let::~Let()
+{
+    std::cout << "LET DTOR" << std::endl;
 }

@@ -9,6 +9,7 @@ public:
 
 	Let(char *name, double expr);
 	virtual void exec() override;
+	virtual ~Let() override;
 	
 private:
 	std::string _name;

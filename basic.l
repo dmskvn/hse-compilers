@@ -1,4 +1,5 @@
 %option case-insensitive
+%option yylineno
 
 %{
     
@@ -25,6 +26,16 @@ DIGIT [0-9]
 \n              { return ENDL; }
 {ALPHA}{DIGIT}?	{ std::cout << "L VARNAME" << std::endl; yylval.sVal = strdup(yytext); return VARNAME; }
 {DIGIT}+		{ yylval.iVal = atoi(yytext); return INTEGER; }
+IF		        { std::cout << "L IF" << std::endl;  return IF; }
+THEN		    { std::cout << "L THEN" << std::endl; return THEN; }
+ELSE		    { std::cout << "L ELSE" << std::endl; return ELSE; }
+END             { std::cout << "L END" << std::endl; return END; }
+\=				{ return EQUAL; }
+\<				{ return LESS; }
+\>				{ return GREATER; }
+\<\=			{ return LESSEQUAL; }
+\>\=			{ return GREATEREQUAL; }
+\<\>			{ return NOTEQUAL; }
 PRINT			{ return PRINT; }
 LET				{ std::cout << "L LET" << std::endl; return LET; }
 LIST			{ return LIST; }

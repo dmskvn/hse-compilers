@@ -9,13 +9,15 @@ class Else : public IProgram
 {
 public:
 
-    Else(std::size_t line);
+    Else();
     virtual void exec() override;
     void setEnd(std::size_t endIfLine);
+    void setJumpToEnd(bool jumpToEnd);
 
 private:
 
     std::size_t _endIfLine = 0;
+    bool _jumpToEnd = false;
 };
 
 #endif

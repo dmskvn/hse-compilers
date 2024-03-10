@@ -7,7 +7,7 @@ class IfThen : public IProgram
 {
 public:
 
-	IfThen(std::size_t line, char *lhs, char *rhs, char *op);
+	IfThen(char *lhs, char *op, char *rhs);
 
     void setElse(std::size_t elseLine);
 
@@ -17,9 +17,9 @@ public:
 
 private:
 
-    char *_lhs;
-    char *_rhs;
-    char *_op; 
+    const std::string _lhs;
+    const std::string _rhs;
+    const std::string _op; 
 
     std::size_t _elseLine = 0;
     std::size_t _endIfLine = 0;

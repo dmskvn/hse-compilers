@@ -12,11 +12,16 @@ extern "C" FILE *yyin;
 extern "C" char *yytext;
 extern "C" int yywrap();
 
+extern int yylineno;
+
 void yyerror(const char *s);
 
 #include "basic.h"
 #include "let.h"
+#include "ifthen.h"
+#include "else.h"
 #include "print.h"
+#include "endif.h"
 
 %}
 
@@ -24,18 +29,27 @@ void yyerror(const char *s);
 %union {
 	int iVal;
 	double dVal;
-	char* sVal;
 	IProgram *progVal;
+	char *sVal;
 }
 
 // constant tokens
 %token PRINT
 %token LET
 %token EQUAL
+%token LESS
+%token GREATER
+%token LESSEQUAL
+%token GREATEREQUAL
+%token NOTEQUAL
 %token EXEC
 %token LOAD
 %token ENDL
 %token LIST
+%token IF
+%token ELSE
+%token END
+%token THEN
 
 // terminal symbols
 %token <iVal> INTEGER
@@ -44,6 +58,7 @@ void yyerror(const char *s);
 
 // non-terminal symbols
 %type <progVal> program 
+%type <sVal> cmp
 
 %% /* Grammar rules and actions follow */
 
@@ -76,9 +91,20 @@ statement:
 ;
 
 program:
-	LET VARNAME EQUAL DOUBLE { std::cout << "!!LET " << std::endl; $$ = new Let($2, $4);}
-	| PRINT VARNAME {  std::cout << "!!PRINT" << std::endl; $$ = new Print ($2);}
+	LET VARNAME EQUAL DOUBLE { std::cout << "!! LET " << std::endl; $$ = new Let($2, $4);}
+	| IF VARNAME cmp VARNAME THEN {std::cout << "!! IF " << std::endl; $$ = new IfThen($2, $3, $4);}
+	| ELSE {std::cout << "!! ELSE " << std::endl; $$ = new Else();}
+	| END IF {std::cout << "!! END IF" << std::endl; $$ = new EndIf();}
+	| PRINT VARNAME {  std::cout << "!! PRINT" << std::endl; $$ = new Print($2);}
+;
 
+cmp:
+	EQUAL					{ std::cout << "!! EQ " << std::endl;  $$ = "="; }
+	| LESS					{ $$ = "<"; }
+	| GREATER				{ $$ = ">"; }
+	| LESSEQUAL				{ $$ = "<="; }
+	| GREATEREQUAL			{ $$ = ">="; }
+	| NOTEQUAL				{ $$ = "<>"; }
 ;
 
 %%

@@ -22,6 +22,11 @@ Basic *Basic::instance(){
 	return b;
 }
 
+Basic::Basic()
+{
+	_programs.reserve(100);
+}
+
 void Basic::add(IProgram* program)
 {
 	_programs.push_back(program);
@@ -78,7 +83,7 @@ bool Basic::inited(std::string varname) const
 	return _variables.at(varname).first;
 }
 
-double Basic::value(std::string varname) const
+double Basic::getVariableValue(std::string varname) const
 {
 	return _variables.at(varname).second;
 }
@@ -88,23 +93,32 @@ std::size_t Basic::getExecutingLine() const
 	return _executingLine; 
 }
 
-void Basic::setExecutingLine(std::size_t executingLine)
+IProgram* Basic::getProgramOnLine(std::size_t line) const
 {
-	_executingLine = executingLine;
+	return _programs[line];
 }
 
-IProgram* Basic::getProgram(std::size_t line) const
+std::size_t Basic::getProgramsSize() const
 {
-	return _programs[_executingLine];
+	return _programs.size();
+}
+
+void Basic::goToProgramOnLine(std::size_t goToline)
+{
+	std::cout << "Basic event: Go to executing line " << goToline << std::endl;
+	_freezeExecutingLineCounter = true;
+	_executingLine = goToline;
 }
 
 void Basic::pushIf(std::size_t ifc)
 {
+	std::cout << "Basic event: If pushed on line " << ifc << std::endl;
 	_if.push({ifc, 0});
 }
 
 void Basic::addElse(std::size_t elsec)
 {
+	std::cout << "Basic event: Else added on line " << elsec << std::endl;
 	_if.top()._else = elsec;
 }
 
@@ -115,6 +129,8 @@ Basic::IfCompilation Basic::topIfElse()
 
 void Basic::popIfElse()
 {
+	std::cout << "Basic event: If " << _if.top()._if << " else " << _if.top()._else \
+	<< "poped" << std::endl;
 	_if.pop();
 }
 
@@ -138,11 +154,20 @@ void Basic::load()
 
 void Basic::exec()
 {
-	std::cout << "---- EXECING " << std::endl;
+	std::cout << "---- EXECING " << _programs.size() << std::endl;
 
-	for(;_executingLine < _programs.size(); ++_executingLine)
+	for(;_executingLine < _programs.size();)
 	{
+		std::cout << "---- EXEC " << _executingLine << " " << _programs[_executingLine] << std::endl;
 		_programs[_executingLine]->exec();
+		if (_freezeExecutingLineCounter)
+		{
+			_freezeExecutingLineCounter = false;
+		}
+		else
+		{
+			++_executingLine;
+		}
 	}
 }
 

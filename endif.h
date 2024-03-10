@@ -8,7 +8,7 @@ class EndIf : public IProgram
 {
 public:
 
-    EndIf(std::size_t line);
+    EndIf();
     virtual void exec() override;
 };
 

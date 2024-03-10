@@ -5,26 +5,36 @@
 #include "ifthen.h"
 #include "else.h"
 
-EndIf::EndIf(std::size_t line)
+#include <iostream>
+
+EndIf::EndIf()
 {
+
+    const auto programNum = Basic::instance()->getProgramsSize();
+    std::cout << "Endif ctor on line " << programNum << std::endl;
+
     auto ifElseTokenPosition = Basic::instance()->topIfElse();
 
     auto *ifThenProgram = static_cast<IfThen*>(
-        Basic::instance()->getProgram(ifElseTokenPosition._if)
+        Basic::instance()->getProgramOnLine(ifElseTokenPosition._if)
     );
 
-    ifThenProgram->setEnd(line);
+    std::cout << "End if " << ifElseTokenPosition._if << " " << ifThenProgram << std::endl;
+
+    ifThenProgram->setEnd(programNum);
 
     if(ifElseTokenPosition._else)
     {
+        ifThenProgram->setElse(ifElseTokenPosition._else);
+
         auto* elseProgram = static_cast<Else*>(
-            Basic::instance()->getProgram(ifElseTokenPosition._else)
+            Basic::instance()->getProgramOnLine(ifElseTokenPosition._else)
         );
-        elseProgram->setEnd(line);
+
+        elseProgram->setEnd(programNum);
     }
 
     Basic::instance()->popIfElse();
-
 }
 
 void EndIf::exec()

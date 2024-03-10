@@ -11,6 +11,7 @@
 class Basic {
 public:
 
+	Basic();
 	void newProgram();	
 	static Basic *instance();
 
@@ -21,12 +22,14 @@ public:
 
 	bool exists(std::string varname) const;
 	bool inited(std::string varname) const;
-	double value(std::string varname) const;
+	double getVariableValue(std::string varname) const;
 
 	std::size_t getExecutingLine() const;
-	void setExecutingLine(std::size_t line);
 	
-	IProgram* getProgram(std::size_t cursor) const; 
+	IProgram* getProgramOnLine(std::size_t line) const; 
+	std::size_t getProgramsSize() const;
+	void goToProgramOnLine(std::size_t line);
+	
 
 	void pushIf(std::size_t ifc);
 	void addElse(std::size_t elsec);
@@ -52,6 +55,7 @@ private:
 	std::stack<IfCompilation> _if;
 	std::stack<std::size_t> _for;
 	
+	bool _freezeExecutingLineCounter = false;
 	std::size_t _executingLine = 0;
 
 	static Basic *b;

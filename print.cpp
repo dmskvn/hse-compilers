@@ -15,7 +15,7 @@ void Print::exec()
     if (exists)
     {
         std::cout << "INITED: " <<  Basic::instance()->inited(_varname) << std::endl;
-        std::cout << "VALUE: " <<  Basic::instance()->value(_varname) << std::endl;    
+        std::cout << "VALUE: " <<  Basic::instance()->getVariableValue(_varname) << std::endl;    
     }
     std::cout << "--------------------------------------------" << std::endl;
 }
