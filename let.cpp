@@ -12,7 +12,6 @@ _expr(expr)
 
 void Let::exec()
 {
-    std::cout << "!! EXECING LET " << this << _name << " " << _expr << std::endl;
     Basic::instance()->create(_name);
     Basic::instance()->assign(_name, _expr);
 }

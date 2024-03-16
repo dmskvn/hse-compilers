@@ -22,6 +22,8 @@ void yyerror(const char *s);
 #include "else.h"
 #include "print.h"
 #include "endif.h"
+#include "for.h"
+#include "next.h"
 
 %}
 
@@ -50,6 +52,9 @@ void yyerror(const char *s);
 %token ELSE
 %token END
 %token THEN
+%token FOR
+%token TO
+%token NEXT
 
 // terminal symbols
 %token <iVal> INTEGER
@@ -92,9 +97,11 @@ statement:
 
 program:
 	LET VARNAME EQUAL DOUBLE { std::cout << "!! LET " << std::endl; $$ = new Let($2, $4);}
+	| FOR VARNAME EQUAL DOUBLE TO VARNAME {std::cout << "!! FOR " << std::endl; $$ = new For($2, $4, $6);}
 	| IF VARNAME cmp VARNAME THEN {std::cout << "!! IF " << std::endl; $$ = new IfThen($2, $3, $4);}
 	| ELSE {std::cout << "!! ELSE " << std::endl; $$ = new Else();}
 	| END IF {std::cout << "!! END IF" << std::endl; $$ = new EndIf();}
+	| NEXT {std::cout << "!! NEXT" << std::endl; $$ = new Next();}
 	| PRINT VARNAME {  std::cout << "!! PRINT" << std::endl; $$ = new Print($2);}
 ;
 

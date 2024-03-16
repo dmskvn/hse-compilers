@@ -90,9 +90,11 @@ void yyerror(const char *s);
 #include "else.h"
 #include "print.h"
 #include "endif.h"
+#include "for.h"
+#include "next.h"
 
 
-#line 96 "basic.tab.c"
+#line 98 "basic.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -139,15 +141,18 @@ enum yysymbol_kind_t
   YYSYMBOL_ELSE = 16,                      /* ELSE  */
   YYSYMBOL_END = 17,                       /* END  */
   YYSYMBOL_THEN = 18,                      /* THEN  */
-  YYSYMBOL_INTEGER = 19,                   /* INTEGER  */
-  YYSYMBOL_DOUBLE = 20,                    /* DOUBLE  */
-  YYSYMBOL_VARNAME = 21,                   /* VARNAME  */
-  YYSYMBOL_YYACCEPT = 22,                  /* $accept  */
-  YYSYMBOL_input = 23,                     /* input  */
-  YYSYMBOL_line = 24,                      /* line  */
-  YYSYMBOL_statement = 25,                 /* statement  */
-  YYSYMBOL_program = 26,                   /* program  */
-  YYSYMBOL_cmp = 27                        /* cmp  */
+  YYSYMBOL_FOR = 19,                       /* FOR  */
+  YYSYMBOL_TO = 20,                        /* TO  */
+  YYSYMBOL_NEXT = 21,                      /* NEXT  */
+  YYSYMBOL_INTEGER = 22,                   /* INTEGER  */
+  YYSYMBOL_DOUBLE = 23,                    /* DOUBLE  */
+  YYSYMBOL_VARNAME = 24,                   /* VARNAME  */
+  YYSYMBOL_YYACCEPT = 25,                  /* $accept  */
+  YYSYMBOL_input = 26,                     /* input  */
+  YYSYMBOL_line = 27,                      /* line  */
+  YYSYMBOL_statement = 28,                 /* statement  */
+  YYSYMBOL_program = 29,                   /* program  */
+  YYSYMBOL_cmp = 30                        /* cmp  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -475,19 +480,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   25
+#define YYLAST   32
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  22
+#define YYNTOKENS  25
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  20
+#define YYNRULES  22
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  31
+#define YYNSTATES  38
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   276
+#define YYMAXUTOK   279
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -528,16 +533,16 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    65,    65,    67,    71,    74,    87,    88,    89,    90,
-      94,    95,    96,    97,    98,   102,   103,   104,   105,   106,
-     107
+       0,    70,    70,    72,    76,    79,    92,    93,    94,    95,
+      99,   100,   101,   102,   103,   104,   105,   109,   110,   111,
+     112,   113,   114
 };
 #endif
 
@@ -555,9 +560,9 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "PRINT", "LET",
   "EQUAL", "LESS", "GREATER", "LESSEQUAL", "GREATEREQUAL", "NOTEQUAL",
-  "EXEC", "LOAD", "ENDL", "LIST", "IF", "ELSE", "END", "THEN", "INTEGER",
-  "DOUBLE", "VARNAME", "$accept", "input", "line", "statement", "program",
-  "cmp", YY_NULLPTR
+  "EXEC", "LOAD", "ENDL", "LIST", "IF", "ELSE", "END", "THEN", "FOR", "TO",
+  "NEXT", "INTEGER", "DOUBLE", "VARNAME", "$accept", "input", "line",
+  "statement", "program", "cmp", YY_NULLPTR
 };
 
 static const char *
@@ -567,7 +572,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-21)
+#define YYPACT_NINF (-24)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -581,10 +586,10 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -21,     0,   -21,   -20,   -19,   -21,   -21,   -21,   -21,   -16,
-     -21,    -9,   -21,    -6,   -21,   -21,     3,    13,   -21,   -21,
-     -11,   -21,   -21,   -21,   -21,   -21,   -21,     4,   -21,    -8,
-     -21
+     -24,     0,   -24,   -23,   -22,   -24,   -24,   -24,   -24,   -19,
+     -24,    -9,   -17,   -24,   -24,    -5,   -24,   -24,     4,    17,
+     -24,     5,   -24,    -3,   -24,   -24,   -24,   -24,   -24,   -24,
+      -6,     6,   -24,    10,    11,   -24,     8,   -24
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -593,21 +598,21 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        2,     0,     1,     0,     0,     8,     7,     4,     6,     0,
-      12,     0,     3,     0,     9,    14,     0,     0,    13,     5,
-       0,    15,    16,    17,    18,    19,    20,     0,    10,     0,
-      11
+      13,     0,     0,    15,     3,     0,     9,    16,     0,     0,
+      14,     0,     5,     0,    17,    18,    19,    20,    21,    22,
+       0,     0,    10,     0,     0,    12,     0,    11
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -21,   -21,   -21,   -21,   -21,   -21
+     -24,   -24,   -24,   -24,   -24,   -24
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,    12,    13,    14,    27
+       0,     1,    14,    15,    16,    30
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -615,42 +620,44 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2,    15,    16,     3,     4,    17,    18,    19,    20,    28,
-      30,     5,     6,     7,     8,     9,    10,    11,    21,    22,
-      23,    24,    25,    26,     0,    29
+       2,    17,    18,     3,     4,    19,    20,    21,    22,    23,
+      31,     5,     6,     7,     8,     9,    10,    11,    33,    12,
+      32,    13,    24,    25,    26,    27,    28,    29,    35,    34,
+       0,    36,    37
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,    21,    21,     3,     4,    21,    15,    13,     5,    20,
-      18,    11,    12,    13,    14,    15,    16,    17,     5,     6,
-       7,     8,     9,    10,    -1,    21
+       0,    24,    24,     3,     4,    24,    15,    24,    13,     5,
+       5,    11,    12,    13,    14,    15,    16,    17,    24,    19,
+      23,    21,     5,     6,     7,     8,     9,    10,    18,    23,
+      -1,    20,    24
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    23,     0,     3,     4,    11,    12,    13,    14,    15,
-      16,    17,    24,    25,    26,    21,    21,    21,    15,    13,
-       5,     5,     6,     7,     8,     9,    10,    27,    20,    21,
-      18
+       0,    26,     0,     3,     4,    11,    12,    13,    14,    15,
+      16,    17,    19,    21,    27,    28,    29,    24,    24,    24,
+      15,    24,    13,     5,     5,     6,     7,     8,     9,    10,
+      30,     5,    23,    24,    23,    18,    20,    24
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    22,    23,    23,    24,    24,    25,    25,    25,    25,
-      26,    26,    26,    26,    26,    27,    27,    27,    27,    27,
-      27
+       0,    25,    26,    26,    27,    27,    28,    28,    28,    28,
+      29,    29,    29,    29,    29,    29,    29,    30,    30,    30,
+      30,    30,    30
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     0,     2,     1,     2,     1,     1,     1,     1,
-       4,     5,     1,     2,     2,     1,     1,     1,     1,     1,
-       1
+       4,     6,     5,     1,     2,     1,     2,     1,     1,     1,
+       1,     1,     1
 };
 
 
@@ -1114,15 +1121,15 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* line: ENDL  */
-#line 71 "basic.y"
+#line 76 "basic.y"
              {
 		std::cout << "ENDL" << std::endl;
 		}
-#line 1122 "basic.tab.c"
+#line 1129 "basic.tab.c"
     break;
 
   case 5: /* line: statement ENDL  */
-#line 74 "basic.y"
+#line 79 "basic.y"
                          {
 		std::cout << "Y STM ENDL" << std::endl;
 		// char c = fgetc(yyin); 
@@ -1133,101 +1140,113 @@ yyreduce:
         //	c = fgetc(yyin); 
     	// } 
 	}
-#line 1137 "basic.tab.c"
+#line 1144 "basic.tab.c"
     break;
 
   case 6: /* statement: LIST  */
-#line 87 "basic.y"
+#line 92 "basic.y"
              {std::cout << "Y LIST" << std::endl; Basic::instance()->list();}
-#line 1143 "basic.tab.c"
+#line 1150 "basic.tab.c"
     break;
 
   case 7: /* statement: LOAD  */
-#line 88 "basic.y"
+#line 93 "basic.y"
                {std::cout << "Y LOAD" << std::endl; Basic::instance()->load();}
-#line 1149 "basic.tab.c"
+#line 1156 "basic.tab.c"
     break;
 
   case 8: /* statement: EXEC  */
-#line 89 "basic.y"
+#line 94 "basic.y"
                {std::cout << "Y EXEC" << std::endl; Basic::instance()->exec();}
-#line 1155 "basic.tab.c"
+#line 1162 "basic.tab.c"
     break;
 
   case 9: /* statement: program  */
-#line 90 "basic.y"
+#line 95 "basic.y"
                   { std::cout << "!!PROGRAM " << std::endl; Basic::instance()->add((yyvsp[0].progVal));}
-#line 1161 "basic.tab.c"
+#line 1168 "basic.tab.c"
     break;
 
   case 10: /* program: LET VARNAME EQUAL DOUBLE  */
-#line 94 "basic.y"
+#line 99 "basic.y"
                                  { std::cout << "!! LET " << std::endl; (yyval.progVal) = new Let((yyvsp[-2].sVal), (yyvsp[0].dVal));}
-#line 1167 "basic.tab.c"
+#line 1174 "basic.tab.c"
     break;
 
-  case 11: /* program: IF VARNAME cmp VARNAME THEN  */
-#line 95 "basic.y"
+  case 11: /* program: FOR VARNAME EQUAL DOUBLE TO VARNAME  */
+#line 100 "basic.y"
+                                              {std::cout << "!! FOR " << std::endl; (yyval.progVal) = new For((yyvsp[-4].sVal), (yyvsp[-2].dVal), (yyvsp[0].sVal));}
+#line 1180 "basic.tab.c"
+    break;
+
+  case 12: /* program: IF VARNAME cmp VARNAME THEN  */
+#line 101 "basic.y"
                                       {std::cout << "!! IF " << std::endl; (yyval.progVal) = new IfThen((yyvsp[-3].sVal), (yyvsp[-2].sVal), (yyvsp[-1].sVal));}
-#line 1173 "basic.tab.c"
+#line 1186 "basic.tab.c"
     break;
 
-  case 12: /* program: ELSE  */
-#line 96 "basic.y"
-               {std::cout << "!! ELSE " << std::endl; (yyval.progVal) = new Else();}
-#line 1179 "basic.tab.c"
-    break;
-
-  case 13: /* program: END IF  */
-#line 97 "basic.y"
-                 {std::cout << "!! END IF" << std::endl; (yyval.progVal) = new EndIf();}
-#line 1185 "basic.tab.c"
-    break;
-
-  case 14: /* program: PRINT VARNAME  */
-#line 98 "basic.y"
-                        {  std::cout << "!! PRINT" << std::endl; (yyval.progVal) = new Print((yyvsp[0].sVal));}
-#line 1191 "basic.tab.c"
-    break;
-
-  case 15: /* cmp: EQUAL  */
+  case 13: /* program: ELSE  */
 #line 102 "basic.y"
-                                                { std::cout << "!! EQ " << std::endl;  (yyval.sVal) = "="; }
-#line 1197 "basic.tab.c"
+               {std::cout << "!! ELSE " << std::endl; (yyval.progVal) = new Else();}
+#line 1192 "basic.tab.c"
     break;
 
-  case 16: /* cmp: LESS  */
+  case 14: /* program: END IF  */
 #line 103 "basic.y"
-                                                { (yyval.sVal) = "<"; }
-#line 1203 "basic.tab.c"
+                 {std::cout << "!! END IF" << std::endl; (yyval.progVal) = new EndIf();}
+#line 1198 "basic.tab.c"
     break;
 
-  case 17: /* cmp: GREATER  */
+  case 15: /* program: NEXT  */
 #line 104 "basic.y"
-                                                { (yyval.sVal) = ">"; }
-#line 1209 "basic.tab.c"
+               {std::cout << "!! NEXT" << std::endl; (yyval.progVal) = new Next();}
+#line 1204 "basic.tab.c"
     break;
 
-  case 18: /* cmp: LESSEQUAL  */
+  case 16: /* program: PRINT VARNAME  */
 #line 105 "basic.y"
+                        {  std::cout << "!! PRINT" << std::endl; (yyval.progVal) = new Print((yyvsp[0].sVal));}
+#line 1210 "basic.tab.c"
+    break;
+
+  case 17: /* cmp: EQUAL  */
+#line 109 "basic.y"
+                                                { std::cout << "!! EQ " << std::endl;  (yyval.sVal) = "="; }
+#line 1216 "basic.tab.c"
+    break;
+
+  case 18: /* cmp: LESS  */
+#line 110 "basic.y"
+                                                { (yyval.sVal) = "<"; }
+#line 1222 "basic.tab.c"
+    break;
+
+  case 19: /* cmp: GREATER  */
+#line 111 "basic.y"
+                                                { (yyval.sVal) = ">"; }
+#line 1228 "basic.tab.c"
+    break;
+
+  case 20: /* cmp: LESSEQUAL  */
+#line 112 "basic.y"
                                                 { (yyval.sVal) = "<="; }
-#line 1215 "basic.tab.c"
+#line 1234 "basic.tab.c"
     break;
 
-  case 19: /* cmp: GREATEREQUAL  */
-#line 106 "basic.y"
+  case 21: /* cmp: GREATEREQUAL  */
+#line 113 "basic.y"
                                         { (yyval.sVal) = ">="; }
-#line 1221 "basic.tab.c"
+#line 1240 "basic.tab.c"
     break;
 
-  case 20: /* cmp: NOTEQUAL  */
-#line 107 "basic.y"
+  case 22: /* cmp: NOTEQUAL  */
+#line 114 "basic.y"
                                                 { (yyval.sVal) = "<>"; }
-#line 1227 "basic.tab.c"
+#line 1246 "basic.tab.c"
     break;
 
 
-#line 1231 "basic.tab.c"
+#line 1250 "basic.tab.c"
 
       default: break;
     }
@@ -1420,7 +1439,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 110 "basic.y"
+#line 117 "basic.y"
 
 
 int main(int argc, char **argv){

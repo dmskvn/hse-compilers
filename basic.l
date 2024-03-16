@@ -30,6 +30,9 @@ IF		        { std::cout << "L IF" << std::endl;  return IF; }
 THEN		    { std::cout << "L THEN" << std::endl; return THEN; }
 ELSE		    { std::cout << "L ELSE" << std::endl; return ELSE; }
 END             { std::cout << "L END" << std::endl; return END; }
+FOR             { std::cout << "L FOR" << std::endl; return FOR; }
+TO              { std::cout << "L TO" << std::endl; return TO; }
+NEXT            { std::cout << "L NEXT" << std::endl; return NEXT; }
 \=				{ return EQUAL; }
 \<				{ return LESS; }
 \>				{ return GREATER; }

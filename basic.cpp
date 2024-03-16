@@ -171,6 +171,21 @@ void Basic::exec()
 	}
 }
 
+void Basic::pushFor(std::size_t forLine)
+{
+	_for.push(forLine);
+}
+
+std::size_t Basic::topFor() const
+{
+	return _for.top();
+}
+
+void Basic::popFor()
+{
+	_for.pop();
+}
+
 // void Basic::aquireIdleMode()
 // {
 // 	_idle = true;

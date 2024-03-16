@@ -47,6 +47,10 @@ public:
 	void load();
 	void exec();
 
+	void pushFor(std::size_t forLine);
+	std::size_t topFor() const;
+	void popFor();
+
 private:
 
 	std::unordered_map<std::string, std::pair<bool, double>> _variables;
