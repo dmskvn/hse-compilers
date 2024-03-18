@@ -1,3 +1,4 @@
+PRINT "AB"
 LET A=1.0
 LET B=10.0
 PRINT A

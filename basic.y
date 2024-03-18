@@ -24,7 +24,7 @@ void yyerror(const char *s);
 #include "endif.h"
 #include "for.h"
 #include "next.h"
-
+#include "printtext.h"
 %}
 
 // token type definition
@@ -60,6 +60,7 @@ void yyerror(const char *s);
 %token <iVal> INTEGER
 %token <dVal> DOUBLE
 %token <sVal> VARNAME
+%token <sVal> TEXT
 
 // non-terminal symbols
 %type <progVal> program 
@@ -103,6 +104,7 @@ program:
 	| END IF {std::cout << "!! END IF" << std::endl; $$ = new EndIf();}
 	| NEXT {std::cout << "!! NEXT" << std::endl; $$ = new Next();}
 	| PRINT VARNAME {  std::cout << "!! PRINT" << std::endl; $$ = new Print($2);}
+	| PRINT TEXT {  std::cout << "!! PRINT TEXT" << std::endl; $$ = new PrintText($2);}
 ;
 
 cmp:

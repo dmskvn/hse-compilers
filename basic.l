@@ -25,6 +25,7 @@ DIGIT [0-9]
 [ \t]+	;
 \n              { return ENDL; }
 {ALPHA}{DIGIT}?	{ std::cout << "L VARNAME" << std::endl; yylval.sVal = strdup(yytext); return VARNAME; }
+"\""{ALPHA}+"\""	    { std::cout << "L TEXT" << std::endl; yylval.sVal = strdup(yytext); return TEXT; }
 {DIGIT}+		{ yylval.iVal = atoi(yytext); return INTEGER; }
 IF		        { std::cout << "L IF" << std::endl;  return IF; }
 THEN		    { std::cout << "L THEN" << std::endl; return THEN; }

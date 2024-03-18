@@ -75,7 +75,8 @@ extern int yydebug;
     NEXT = 276,                    /* NEXT  */
     INTEGER = 277,                 /* INTEGER  */
     DOUBLE = 278,                  /* DOUBLE  */
-    VARNAME = 279                  /* VARNAME  */
+    VARNAME = 279,                 /* VARNAME  */
+    TEXT = 280                     /* TEXT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -91,7 +92,7 @@ union YYSTYPE
 	IProgram *progVal;
 	char *sVal;
 
-#line 95 "basic.tab.h"
+#line 96 "basic.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
