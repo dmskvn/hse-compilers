@@ -12,8 +12,8 @@ _varNameEnd(varNameEnd)
 {
     const auto programNum = Basic::instance()->getProgramsSize();
 
-    std::cout << "For ctor on line " << _varCtrName << " "
-    << this << " " <<  _ctrValue <<  " "  << _varNameEnd << std::endl;
+    //std::cout << "For ctor on line " << _varCtrName << " "
+    //<< this << " " <<  _ctrValue <<  " "  << _varNameEnd << std::endl;
 
     Basic::instance()->pushFor(programNum);
 }

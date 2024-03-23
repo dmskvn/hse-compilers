@@ -5,7 +5,10 @@
 
 PrintText::PrintText(char* text)
 :_text(text)
-{}
+{
+    _text.erase(_text.begin());
+    _text.erase(_text.end()-1); 
+}
 
 void PrintText::exec()
 {

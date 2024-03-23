@@ -1,8 +1,9 @@
 #include "else.h"
 
-#include "basic.h"
 
 #include "ifthen.h"
+
+#include "basic.h"
 
 #include <iostream>
 
@@ -10,7 +11,7 @@ Else::Else()
 {
 
     const auto programNum = Basic::instance()->getProgramsSize();
-    std::cout << "Else ctor on line " << programNum << std::endl;
+    //std::cout << "Else ctor on line " << programNum << std::endl;
     Basic::instance()->addElse(programNum);
 
     // auto ifElseTokenPosition = Basic::instance()->topIfElse();
@@ -32,7 +33,7 @@ void Else::setJumpToEnd(bool jumpToEnd)
 
 void Else::exec()
 {
-    std::cout << "Jump to endline " << _jumpToEnd << " .Line " << _endIfLine << std::endl;
+    //std::cout << "Jump to endline " << _jumpToEnd << " .Line " << _endIfLine << std::endl;
 
     if (_jumpToEnd)
     {

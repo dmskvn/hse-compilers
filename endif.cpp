@@ -11,7 +11,7 @@ EndIf::EndIf()
 {
 
     const auto programNum = Basic::instance()->getProgramsSize();
-    std::cout << "Endif ctor on line " << programNum << std::endl;
+    //std::cout << "Endif ctor on line " << programNum << std::endl;
 
     auto ifElseTokenPosition = Basic::instance()->topIfElse();
 
@@ -19,7 +19,7 @@ EndIf::EndIf()
         Basic::instance()->getProgramOnLine(ifElseTokenPosition._if)
     );
 
-    std::cout << "End if " << ifElseTokenPosition._if << " " << ifThenProgram << std::endl;
+    //std::cout << "End if " << ifElseTokenPosition._if << " " << ifThenProgram << std::endl;
 
     ifThenProgram->setEnd(programNum);
 
@@ -38,6 +38,4 @@ EndIf::EndIf()
 }
 
 void EndIf::exec()
-{
-
-}
+{}

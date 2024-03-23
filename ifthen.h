@@ -3,6 +3,8 @@
 
 #include "program.h"
 
+#include <string>
+
 class IfThen : public IProgram 
 {
 public:

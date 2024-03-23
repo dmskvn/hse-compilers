@@ -3,20 +3,34 @@
 
 #include <iostream>
 
-Let::Let(char *name, double expr)
+Let::Let(char *name, double val)
 :_name(name),
-_expr(expr)
+_val(val),
+_expr(nullptr)
 {
-    std::cout << "Let ctor. " << this << "Name"  << name << " val " << expr << std::endl;
+    std::cout << "Let ctor. " << this << "Name"  << name << " val " << _val << std::endl;
 }
+
+Let::Let(char *name, IExpression *expr)
+:_name(name),
+_val(0),
+_expr(expr)
+{}
 
 void Let::exec()
 {
-    Basic::instance()->create(_name);
-    Basic::instance()->assign(_name, _expr);
+    if (_expr == nullptr)
+    {
+        Basic::instance()->create(_name);
+        Basic::instance()->assign(_name, _val);
+    }
+    else
+    {
+        Basic::instance()->assign(_name, _expr->value());
+    }
 }
 
 Let::~Let()
 {
-    std::cout << "LET DTOR" << std::endl;
+    //std::cout << "LET DTOR" << std::endl;
 }

@@ -3,17 +3,20 @@
 
 #include "double.h"
 #include "program.h"
+#include "expression.h"
 
 class Let : public IProgram {
 public:
 
-	Let(char *name, double expr);
+	Let(char *name, double val);
+	Let(char *name, IExpression *expr);
 	virtual void exec() override;
 	virtual ~Let() override;
 	
 private:
 	std::string _name;
-	const double _expr;
+	const double _val;
+	IExpression *_expr;
 };
 
 #endif

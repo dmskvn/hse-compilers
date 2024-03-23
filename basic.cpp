@@ -30,7 +30,7 @@ Basic::Basic()
 void Basic::add(IProgram* program)
 {
 	_programs.push_back(program);
-	std::cout << "Basic event: program added. Size: " << _programs.size() << std::endl;
+	//std::cout << "Basic event: program added. Size: " << _programs.size() << std::endl;
 }
 
 void Basic::assign(std::string name, double val)
@@ -42,7 +42,7 @@ void Basic::assign(std::string name, double val)
 	_variables[name].second = val;
 	_variables[name].first = true;
 	
-	std::cout << "Basic event: variable " << name << " assigned " << val << std::endl;
+	//std::cout << "Basic event: variable " << name << " assigned " << val << std::endl;
 }
 
 void Basic::create(std::string name)
@@ -52,7 +52,7 @@ void Basic::create(std::string name)
 		throw std::logic_error("Variable" + name + "already exists");
 	}
 	_variables[name] = std::make_pair(false, 0);
-	std::cout << "Basic event: variable " << name << " created " << std::endl;
+	//std::cout << "Basic event: variable " << name << " created " << std::endl;
 }
 
 void Basic::newProgram()
@@ -62,15 +62,11 @@ void Basic::newProgram()
 
 void Basic::list() const
 {
-	std::cout << "+++++ LIST +++++" << std::endl;
-
 	std::cout << "Files: " << std::endl;
     for (const auto & entry : std::filesystem::directory_iterator("."))
 	{
         std::cout << entry.path() << std::endl;
 	}
-
-	std::cout << "+++++ LIST +++++" << std::endl;
 }
 
 bool Basic::exists(std::string varname) const
@@ -105,20 +101,20 @@ std::size_t Basic::getProgramsSize() const
 
 void Basic::goToProgramOnLine(std::size_t goToline)
 {
-	std::cout << "Basic event: Go to executing line " << goToline << std::endl;
+	//std::cout << "Basic event: Go to executing line " << goToline << std::endl;
 	_freezeExecutingLineCounter = true;
 	_executingLine = goToline;
 }
 
 void Basic::pushIf(std::size_t ifc)
 {
-	std::cout << "Basic event: If pushed on line " << ifc << std::endl;
+	//std::cout << "Basic event: If pushed on line " << ifc << std::endl;
 	_if.push({ifc, 0});
 }
 
 void Basic::addElse(std::size_t elsec)
 {
-	std::cout << "Basic event: Else added on line " << elsec << std::endl;
+	//std::cout << "Basic event: Else added on line " << elsec << std::endl;
 	_if.top()._else = elsec;
 }
 
@@ -129,8 +125,8 @@ Basic::IfCompilation Basic::topIfElse()
 
 void Basic::popIfElse()
 {
-	std::cout << "Basic event: If " << _if.top()._if << " else " << _if.top()._else \
-	<< "poped" << std::endl;
+	//std::cout << "Basic event: If " << _if.top()._if << " else " << _if.top()._else \
+	//<< "poped" << std::endl;
 	_if.pop();
 }
 
@@ -154,11 +150,11 @@ void Basic::load()
 
 void Basic::exec()
 {
-	std::cout << "---- EXECING " << _programs.size() << std::endl;
+	//std::cout << "---- EXECING " << _programs.size() << std::endl;
 
 	for(;_executingLine < _programs.size();)
 	{
-		std::cout << "---- EXEC " << _executingLine << " " << _programs[_executingLine] << std::endl;
+		//std::cout << "---- EXEC " << _executingLine << " " << _programs[_executingLine] << std::endl;
 		_programs[_executingLine]->exec();
 		if (_freezeExecutingLineCounter)
 		{

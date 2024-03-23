@@ -9,13 +9,15 @@ Print::Print(char* varname)
 
 void Print::exec()
 {
-    std::cout << "------- PRINT: VAR: " << _varname << "-------" << std::endl;
-    const auto exists = Basic::instance()->exists(_varname);
-    std::cout << "EXISTS: " <<  exists << std::endl;
-    if (exists)
-    {
-        std::cout << "INITED: " <<  Basic::instance()->inited(_varname) << std::endl;
-        std::cout << "VALUE: " <<  Basic::instance()->getVariableValue(_varname) << std::endl;    
-    }
-    std::cout << "--------------------------------------------" << std::endl;
+    //std::cout << "------- PRINT: VAR: " << _varname << "-------" << std::endl;
+    //const auto exists = Basic::instance()->exists(_varname);
+    //std::cout << "EXISTS: " <<  exists << std::endl;
+    //if (exists)
+    //{
+        //std::cout << "INITED: " <<  Basic::instance()->inited(_varname) << std::endl;
+        //std::cout << "VALUE: " <<  Basic::instance()->getVariableValue(_varname) << std::endl;    
+    //}
+    //std::cout << "--------------------------------------------" << std::endl;
+
+    std::cout << "VAR: " << _varname << "=" <<Basic::instance()->getVariableValue(_varname)<< std::endl;
 }

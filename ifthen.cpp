@@ -12,21 +12,21 @@ _op(op)
 {
     const auto programNum = Basic::instance()->getProgramsSize();
 
-    std::cout << "If ctor on line " << programNum << " "
-    << this << " " <<  _lhs <<  " "  << _op << " "<< _rhs << std::endl;
+    //std::cout << "If ctor on line " << programNum << " "
+    //<< this << " " <<  _lhs <<  " "  << _op << " "<< _rhs << std::endl;
 
     Basic::instance()->pushIf(programNum);
 }
 
 void IfThen::setElse(std::size_t elseLine)
 {
-    std::cout << "Set else on" << elseLine << " " << std::endl;
+    //std::cout << "Set else on" << elseLine << " " << std::endl;
     _elseLine = elseLine;
 }
 
 void IfThen::setEnd(std::size_t endIfLine)
 {
-    std::cout << "Set endline on" << endIfLine << " " << std::endl;
+    //std::cout << "Set endline on" << endIfLine << " " << std::endl;
     _endIfLine = endIfLine;
 }
 
@@ -49,7 +49,7 @@ void IfThen::exec()
 	else if(_op == "<>")
 		result = lval != rval;
 	
-    std::cout << "Condition result " << result << std::endl;
+    //std::cout << "Condition result " << result << std::endl;
 
     auto *elseLine = static_cast<Else*>(Basic::instance()->getProgramOnLine(_elseLine));
 

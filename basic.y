@@ -24,7 +24,12 @@ void yyerror(const char *s);
 #include "endif.h"
 #include "for.h"
 #include "next.h"
+#include "program.h"
 #include "printtext.h"
+#include "expression.h"
+#include "operatorexpression.h"
+#include "doubleexpression.h"
+#include "parenexpression.h"
 %}
 
 // token type definition
@@ -32,6 +37,7 @@ void yyerror(const char *s);
 	int iVal;
 	double dVal;
 	IProgram *progVal;
+	IExpression *eVal;
 	char *sVal;
 }
 
@@ -55,12 +61,22 @@ void yyerror(const char *s);
 %token FOR
 %token TO
 %token NEXT
+%token PLUS
+%token MINUS
+%token MULT
+%token DIV
+%token OPENPAREN
+%token CLOSEPAREN
 
 // terminal symbols
 %token <iVal> INTEGER
 %token <dVal> DOUBLE
 %token <sVal> VARNAME
 %token <sVal> TEXT
+%type <eVal> doubleExpr
+%type <eVal> addExpr
+%type <eVal> mulExpr
+%type <eVal> term
 
 // non-terminal symbols
 %type <progVal> program 
@@ -78,7 +94,7 @@ line:
 		std::cout << "ENDL" << std::endl;
 		}
 	| statement ENDL {
-		std::cout << "Y STM ENDL" << std::endl;
+		//std::cout << "Y STM ENDL" << std::endl;
 		// char c = fgetc(yyin); 
 		// std::cout << (c == EOF) << std::endl;
     	// while (c != EOF) 
@@ -90,25 +106,48 @@ line:
 ;
 
 statement:
-	LIST {std::cout << "Y LIST" << std::endl; Basic::instance()->list();}
-	| LOAD {std::cout << "Y LOAD" << std::endl; Basic::instance()->load();}
-	| EXEC {std::cout << "Y EXEC" << std::endl; Basic::instance()->exec();}
-	| program { std::cout << "!!PROGRAM " << std::endl; Basic::instance()->add($1);}
+	LIST {Basic::instance()->list();}
+	| LOAD {Basic::instance()->load();}
+	| EXEC {Basic::instance()->exec();}
+	| program {Basic::instance()->add($1);}
 ;
 
 program:
-	LET VARNAME EQUAL DOUBLE { std::cout << "!! LET " << std::endl; $$ = new Let($2, $4);}
-	| FOR VARNAME EQUAL DOUBLE TO VARNAME {std::cout << "!! FOR " << std::endl; $$ = new For($2, $4, $6);}
-	| IF VARNAME cmp VARNAME THEN {std::cout << "!! IF " << std::endl; $$ = new IfThen($2, $3, $4);}
-	| ELSE {std::cout << "!! ELSE " << std::endl; $$ = new Else();}
-	| END IF {std::cout << "!! END IF" << std::endl; $$ = new EndIf();}
-	| NEXT {std::cout << "!! NEXT" << std::endl; $$ = new Next();}
-	| PRINT VARNAME {  std::cout << "!! PRINT" << std::endl; $$ = new Print($2);}
-	| PRINT TEXT {  std::cout << "!! PRINT TEXT" << std::endl; $$ = new PrintText($2);}
+	LET VARNAME EQUAL DOUBLE {$$ = new Let($2, $4);}
+	| VARNAME EQUAL doubleExpr {$$ = new Let($1, $3);}
+	| FOR VARNAME EQUAL DOUBLE TO VARNAME {$$ = new For($2, $4, $6);}
+	| IF VARNAME cmp VARNAME THEN {$$ = new IfThen($2, $3, $4);}
+	| ELSE {$$ = new Else();}
+	| END IF {$$ = new EndIf();}
+	| NEXT {$$ = new Next();}
+	| PRINT VARNAME {$$ = new Print($2);}
+	| PRINT TEXT {$$ = new PrintText($2);}
+;
+
+doubleExpr:
+	addExpr
+;
+
+addExpr:
+	mulExpr
+	| mulExpr PLUS mulExpr	{ $$ = new OperatorExpression($1, $3, '+'); }
+	| mulExpr MINUS mulExpr	{ $$ = new OperatorExpression($1, $3, '-'); }
+;
+
+mulExpr:
+	term
+	| term MULT term	{ $$ = new OperatorExpression($1, $3, '*'); }
+	| term DIV term	{ $$ = new OperatorExpression($1, $3, '/'); }
+;
+
+term:
+	DOUBLE			{ $$ = new DoubleExpression($1); }
+	| VARNAME       { $$ = new DoubleExpression($1); }
+	| OPENPAREN addExpr CLOSEPAREN	{ $$ = new ParenExpression($2); }
 ;
 
 cmp:
-	EQUAL					{ std::cout << "!! EQ " << std::endl;  $$ = "="; }
+	EQUAL					{ $$ = "="; }
 	| LESS					{ $$ = "<"; }
 	| GREATER				{ $$ = ">"; }
 	| LESSEQUAL				{ $$ = "<="; }
