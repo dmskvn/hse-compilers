@@ -81,6 +81,10 @@ bool Basic::inited(std::string varname) const
 
 double Basic::getVariableValue(std::string varname) const
 {
+	if (!_variables.at(varname).first)
+	{
+		throw std::logic_error("Variable" + varname + "not initilized");
+	}
 	return _variables.at(varname).second;
 }
 

@@ -503,7 +503,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  34
+#define YYNRULES  35
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  58
 
@@ -558,9 +558,9 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    87,    87,    89,    93,    96,   109,   110,   111,   112,
-     116,   117,   118,   119,   120,   121,   122,   123,   124,   128,
-     132,   133,   134,   138,   139,   140,   144,   145,   146,   150,
-     151,   152,   153,   154,   155
+     116,   117,   118,   119,   120,   121,   122,   123,   124,   125,
+     129,   133,   134,   135,   139,   140,   141,   145,   146,   147,
+     151,   152,   153,   154,   155,   156
 };
 #endif
 
@@ -620,11 +620,11 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        2,     0,     1,     0,     0,     8,     7,     4,     6,     0,
-      14,     0,     0,    16,     0,     3,     0,     9,    17,    18,
-       0,     0,    15,     0,     0,     5,     0,    29,    30,    31,
-      32,    33,    34,     0,     0,     0,    26,    27,    11,    19,
-      20,    23,    10,     0,     0,     0,     0,     0,     0,     0,
-      13,     0,    28,    21,    22,    24,    25,    12
+      15,     0,     0,    17,     0,     3,     0,     9,    18,    19,
+      10,     0,    16,     0,     0,     5,     0,    30,    31,    32,
+      33,    34,    35,     0,     0,     0,    27,    28,    12,    20,
+      21,    24,    11,     0,     0,     0,     0,     0,     0,     0,
+      14,     0,    29,    22,    23,    25,    26,    13
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -676,18 +676,18 @@ static const yytype_int8 yystos[] =
 static const yytype_int8 yyr1[] =
 {
        0,    32,    33,    33,    34,    34,    35,    35,    35,    35,
-      36,    36,    36,    36,    36,    36,    36,    36,    36,    37,
-      38,    38,    38,    39,    39,    39,    40,    40,    40,    41,
-      41,    41,    41,    41,    41
+      36,    36,    36,    36,    36,    36,    36,    36,    36,    36,
+      37,    38,    38,    38,    39,    39,    39,    40,    40,    40,
+      41,    41,    41,    41,    41,    41
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     0,     2,     1,     2,     1,     1,     1,     1,
-       4,     3,     6,     5,     1,     2,     1,     2,     2,     1,
-       1,     3,     3,     1,     3,     3,     1,     1,     3,     1,
-       1,     1,     1,     1,     1
+       2,     4,     3,     6,     5,     1,     2,     1,     2,     2,
+       1,     1,     3,     3,     1,     3,     3,     1,     1,     3,
+       1,     1,     1,     1,     1,     1
 };
 
 
@@ -1197,140 +1197,146 @@ yyreduce:
 #line 1198 "basic.tab.c"
     break;
 
-  case 10: /* program: LET VARNAME EQUAL DOUBLE  */
+  case 10: /* program: LET VARNAME  */
 #line 116 "basic.y"
-                                 {(yyval.progVal) = new Let((yyvsp[-2].sVal), (yyvsp[0].dVal));}
+                    {(yyval.progVal) = new Let((yyvsp[0].sVal));}
 #line 1204 "basic.tab.c"
     break;
 
-  case 11: /* program: VARNAME EQUAL doubleExpr  */
+  case 11: /* program: LET VARNAME EQUAL DOUBLE  */
 #line 117 "basic.y"
-                                   {(yyval.progVal) = new Let((yyvsp[-2].sVal), (yyvsp[0].eVal));}
+                                   {(yyval.progVal) = new Let((yyvsp[-2].sVal), (yyvsp[0].dVal));}
 #line 1210 "basic.tab.c"
     break;
 
-  case 12: /* program: FOR VARNAME EQUAL DOUBLE TO VARNAME  */
+  case 12: /* program: VARNAME EQUAL doubleExpr  */
 #line 118 "basic.y"
-                                              {(yyval.progVal) = new For((yyvsp[-4].sVal), (yyvsp[-2].dVal), (yyvsp[0].sVal));}
+                                   {(yyval.progVal) = new Let((yyvsp[-2].sVal), (yyvsp[0].eVal));}
 #line 1216 "basic.tab.c"
     break;
 
-  case 13: /* program: IF VARNAME cmp VARNAME THEN  */
+  case 13: /* program: FOR VARNAME EQUAL DOUBLE TO VARNAME  */
 #line 119 "basic.y"
-                                      {(yyval.progVal) = new IfThen((yyvsp[-3].sVal), (yyvsp[-2].sVal), (yyvsp[-1].sVal));}
+                                              {(yyval.progVal) = new For((yyvsp[-4].sVal), (yyvsp[-2].dVal), (yyvsp[0].sVal));}
 #line 1222 "basic.tab.c"
     break;
 
-  case 14: /* program: ELSE  */
+  case 14: /* program: IF VARNAME cmp VARNAME THEN  */
 #line 120 "basic.y"
-               {(yyval.progVal) = new Else();}
+                                      {(yyval.progVal) = new IfThen((yyvsp[-3].sVal), (yyvsp[-2].sVal), (yyvsp[-1].sVal));}
 #line 1228 "basic.tab.c"
     break;
 
-  case 15: /* program: END IF  */
+  case 15: /* program: ELSE  */
 #line 121 "basic.y"
-                 {(yyval.progVal) = new EndIf();}
+               {(yyval.progVal) = new Else();}
 #line 1234 "basic.tab.c"
     break;
 
-  case 16: /* program: NEXT  */
+  case 16: /* program: END IF  */
 #line 122 "basic.y"
-               {(yyval.progVal) = new Next();}
+                 {(yyval.progVal) = new EndIf();}
 #line 1240 "basic.tab.c"
     break;
 
-  case 17: /* program: PRINT VARNAME  */
+  case 17: /* program: NEXT  */
 #line 123 "basic.y"
-                        {(yyval.progVal) = new Print((yyvsp[0].sVal));}
+               {(yyval.progVal) = new Next();}
 #line 1246 "basic.tab.c"
     break;
 
-  case 18: /* program: PRINT TEXT  */
+  case 18: /* program: PRINT VARNAME  */
 #line 124 "basic.y"
-                     {(yyval.progVal) = new PrintText((yyvsp[0].sVal));}
+                        {(yyval.progVal) = new Print((yyvsp[0].sVal));}
 #line 1252 "basic.tab.c"
     break;
 
-  case 21: /* addExpr: mulExpr PLUS mulExpr  */
-#line 133 "basic.y"
-                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '+'); }
+  case 19: /* program: PRINT TEXT  */
+#line 125 "basic.y"
+                     {(yyval.progVal) = new PrintText((yyvsp[0].sVal));}
 #line 1258 "basic.tab.c"
     break;
 
-  case 22: /* addExpr: mulExpr MINUS mulExpr  */
+  case 22: /* addExpr: mulExpr PLUS mulExpr  */
 #line 134 "basic.y"
-                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '-'); }
+                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '+'); }
 #line 1264 "basic.tab.c"
     break;
 
-  case 24: /* mulExpr: term MULT term  */
-#line 139 "basic.y"
-                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '*'); }
+  case 23: /* addExpr: mulExpr MINUS mulExpr  */
+#line 135 "basic.y"
+                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '-'); }
 #line 1270 "basic.tab.c"
     break;
 
-  case 25: /* mulExpr: term DIV term  */
+  case 25: /* mulExpr: term MULT term  */
 #line 140 "basic.y"
-                        { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '/'); }
+                                { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '*'); }
 #line 1276 "basic.tab.c"
     break;
 
-  case 26: /* term: DOUBLE  */
-#line 144 "basic.y"
-                                { (yyval.eVal) = new DoubleExpression((yyvsp[0].dVal)); }
+  case 26: /* mulExpr: term DIV term  */
+#line 141 "basic.y"
+                        { (yyval.eVal) = new OperatorExpression((yyvsp[-2].eVal), (yyvsp[0].eVal), '/'); }
 #line 1282 "basic.tab.c"
     break;
 
-  case 27: /* term: VARNAME  */
+  case 27: /* term: DOUBLE  */
 #line 145 "basic.y"
-                        { (yyval.eVal) = new DoubleExpression((yyvsp[0].sVal)); }
+                                { (yyval.eVal) = new DoubleExpression((yyvsp[0].dVal)); }
 #line 1288 "basic.tab.c"
     break;
 
-  case 28: /* term: OPENPAREN addExpr CLOSEPAREN  */
+  case 28: /* term: VARNAME  */
 #line 146 "basic.y"
-                                        { (yyval.eVal) = new ParenExpression((yyvsp[-1].eVal)); }
+                        { (yyval.eVal) = new DoubleExpression((yyvsp[0].sVal)); }
 #line 1294 "basic.tab.c"
     break;
 
-  case 29: /* cmp: EQUAL  */
-#line 150 "basic.y"
-                                                { (yyval.sVal) = "="; }
+  case 29: /* term: OPENPAREN addExpr CLOSEPAREN  */
+#line 147 "basic.y"
+                                        { (yyval.eVal) = new ParenExpression((yyvsp[-1].eVal)); }
 #line 1300 "basic.tab.c"
     break;
 
-  case 30: /* cmp: LESS  */
+  case 30: /* cmp: EQUAL  */
 #line 151 "basic.y"
-                                                { (yyval.sVal) = "<"; }
+                                                { (yyval.sVal) = "="; }
 #line 1306 "basic.tab.c"
     break;
 
-  case 31: /* cmp: GREATER  */
+  case 31: /* cmp: LESS  */
 #line 152 "basic.y"
-                                                { (yyval.sVal) = ">"; }
+                                                { (yyval.sVal) = "<"; }
 #line 1312 "basic.tab.c"
     break;
 
-  case 32: /* cmp: LESSEQUAL  */
+  case 32: /* cmp: GREATER  */
 #line 153 "basic.y"
-                                                { (yyval.sVal) = "<="; }
+                                                { (yyval.sVal) = ">"; }
 #line 1318 "basic.tab.c"
     break;
 
-  case 33: /* cmp: GREATEREQUAL  */
+  case 33: /* cmp: LESSEQUAL  */
 #line 154 "basic.y"
-                                        { (yyval.sVal) = ">="; }
+                                                { (yyval.sVal) = "<="; }
 #line 1324 "basic.tab.c"
     break;
 
-  case 34: /* cmp: NOTEQUAL  */
+  case 34: /* cmp: GREATEREQUAL  */
 #line 155 "basic.y"
-                                                { (yyval.sVal) = "<>"; }
+                                        { (yyval.sVal) = ">="; }
 #line 1330 "basic.tab.c"
     break;
 
+  case 35: /* cmp: NOTEQUAL  */
+#line 156 "basic.y"
+                                                { (yyval.sVal) = "<>"; }
+#line 1336 "basic.tab.c"
+    break;
 
-#line 1334 "basic.tab.c"
+
+#line 1340 "basic.tab.c"
 
       default: break;
     }
@@ -1523,7 +1529,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 158 "basic.y"
+#line 159 "basic.y"
 
 
 int main(int argc, char **argv){

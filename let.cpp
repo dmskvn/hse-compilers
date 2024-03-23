@@ -3,16 +3,28 @@
 
 #include <iostream>
 
+Let::Let(char *name)
+:_declareOnly(true),
+_name(name),
+_val(0),
+_expr(nullptr)
+{
+    //std::cout << "Let ctor. Declare only " << " Name " << _name << std::endl;
+}
+
+
 Let::Let(char *name, double val)
-:_name(name),
+:_declareOnly(false),
+_name(name),
 _val(val),
 _expr(nullptr)
 {
-    std::cout << "Let ctor. " << this << "Name"  << name << " val " << _val << std::endl;
+    //std::cout << "Let ctor. " << this << "Name"  << name << " val " << _val << std::endl;
 }
 
 Let::Let(char *name, IExpression *expr)
-:_name(name),
+:_declareOnly(false),
+_name(name),
 _val(0),
 _expr(expr)
 {}
@@ -22,7 +34,10 @@ void Let::exec()
     if (_expr == nullptr)
     {
         Basic::instance()->create(_name);
-        Basic::instance()->assign(_name, _val);
+        if (!_declareOnly)
+        {
+            Basic::instance()->assign(_name, _val);
+        }
     }
     else
     {

@@ -8,12 +8,15 @@
 class Let : public IProgram {
 public:
 
+	Let(char *name);
 	Let(char *name, double val);
 	Let(char *name, IExpression *expr);
 	virtual void exec() override;
 	virtual ~Let() override;
 	
 private:
+
+	bool _declareOnly;
 	std::string _name;
 	const double _val;
 	IExpression *_expr;

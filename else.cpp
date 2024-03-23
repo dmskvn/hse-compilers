@@ -1,6 +1,4 @@
 #include "else.h"
-
-
 #include "ifthen.h"
 
 #include "basic.h"

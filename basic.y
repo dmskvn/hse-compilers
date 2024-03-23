@@ -113,7 +113,8 @@ statement:
 ;
 
 program:
-	LET VARNAME EQUAL DOUBLE {$$ = new Let($2, $4);}
+	LET VARNAME {$$ = new Let($2);}
+	| LET VARNAME EQUAL DOUBLE {$$ = new Let($2, $4);}
 	| VARNAME EQUAL doubleExpr {$$ = new Let($1, $3);}
 	| FOR VARNAME EQUAL DOUBLE TO VARNAME {$$ = new For($2, $4, $6);}
 	| IF VARNAME cmp VARNAME THEN {$$ = new IfThen($2, $3, $4);}

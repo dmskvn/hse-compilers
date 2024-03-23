@@ -4,7 +4,7 @@
 ParenExpression::ParenExpression(IExpression *expr)
 :_expr(expr)
 {
-	std::cout << "ParenExpression ctor " << std::endl;
+	//std::cout << "ParenExpression ctor " << std::endl;
 }
 
 double ParenExpression::value() const{

@@ -6,7 +6,7 @@ OperatorExpression::OperatorExpression(IExpression *lhs, IExpression *rhs, char 
 _rhs(rhs),
 _op(op)
 {
-	std::cout << "OperatorExpression ctor op " << op << std::endl;
+	//std::cout << "OperatorExpression ctor op " << op << std::endl;
 }
 
 double OperatorExpression::value() const {
