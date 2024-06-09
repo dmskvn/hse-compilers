@@ -31,19 +31,53 @@ _expr(expr)
 
 void Let::exec()
 {
+    std::string res ("MOV " + _name + " ");
     if (_expr == nullptr)
     {
         Basic::instance()->create(_name);
         if (!_declareOnly)
         {
             Basic::instance()->assign(_name, _val);
+            res +=  _val;
         }
     }
     else
     {
+        const auto val =  _expr->value();
         Basic::instance()->assign(_name, _expr->value());
+        res += val;
     }
 }
+
+std::vector<std::string> Let::getIrCode() 
+{
+    if (_expr == nullptr)
+    {
+        return {{"MOV "  + _name + ", " + std::to_string(_val)}};
+    }
+    else
+    {
+        return {{"MOV "  + _name + ", " + _expr->getCalculationExpr()}};
+    }
+}
+
+std::vector<std::string> Let::getCCode()
+{
+    if (_declareOnly)
+    {
+        return {{"double " + _name + "=0;" }};
+    }
+
+    if (_expr == nullptr)
+    {
+        return {{"double " + _name + "=" + std::to_string(_val) + ";"}};
+    }
+    else
+    {
+        return {{_name + "=" + _expr->getCalculationExpr() + ";"}};
+    }
+}
+
 
 Let::~Let()
 {

@@ -28,6 +28,7 @@ public:
 	
 	IProgram* getProgramOnLine(std::size_t line) const; 
 	std::size_t getProgramsSize() const;
+	std::string getNextLabelCounter();
 	void goToProgramOnLine(std::size_t line);
 	
 
@@ -59,6 +60,9 @@ private:
 	std::stack<IfCompilation> _if;
 	std::stack<std::size_t> _for;
 	
+
+	std::string _fileName;
+	std::string _labelCounter = {char('A') - 1};
 	bool _freezeExecutingLineCounter = false;
 	std::size_t _executingLine = 0;
 

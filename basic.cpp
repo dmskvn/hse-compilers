@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <filesystem>
+#include <fstream> 
 
 #include <unistd.h>
 #include <sys/dir.h>
@@ -98,6 +99,13 @@ IProgram* Basic::getProgramOnLine(std::size_t line) const
 	return _programs[line];
 }
 
+std::string Basic::getNextLabelCounter()
+{
+	_labelCounter[0] = _labelCounter[0] + 1;
+	//std::cout << "---- Label counter " << _labelCounter << std::endl;
+	return _labelCounter;
+}
+
 std::size_t Basic::getProgramsSize() const
 {
 	return _programs.size();
@@ -137,18 +145,17 @@ void Basic::popIfElse()
 void Basic::load()
 {
 	std::cout << "Program to load: " << std::endl;
-	std::string fileName;
-	std::cin >> fileName;
+	std::cin >> _fileName;
 
-	yyin = fopen(fileName.c_str(), "r");
+	yyin = fopen(_fileName.c_str(), "r");
 
 	if(!yyin){
-		std::cout << "ERROR: could not read file: " << fileName << std::endl;
+		std::cout << "ERROR: could not read file: " << _fileName << std::endl;
 		yyin = stdin;
 	}
 	else
 	{
-		std::cout << "FILE " << fileName << " LOADED. EXECUTING ..." << std::endl; 
+		std::cout << "FILE " << _fileName << " LOADED. EXECUTING ..." << std::endl; 
 	}
 }
 
@@ -169,6 +176,42 @@ void Basic::exec()
 			++_executingLine;
 		}
 	}
+
+	std::ofstream ir_code;
+  	ir_code.open (_fileName + ".ir",  std::ofstream::out);
+
+	for(std::size_t i = 0; i < _programs.size(); ++i)
+	{
+		//std::cout << "---- IR " << i << std::endl;
+		auto irs = _programs[i]->getIrCode();
+		//std::cout << "---- is size " << irs.size() << std::endl;
+		for (const auto& ir : irs)
+		{
+			ir_code << ir << '\n';
+		}
+	}
+	ir_code.close();
+
+	
+	std::ofstream c_code;
+  	c_code.open(_fileName + ".c",  std::ofstream::out);
+
+	c_code << "#include <stdio.h>" << '\n';
+	c_code << "int main(){" << '\n';
+
+	for(std::size_t i = 0; i < _programs.size(); ++i)
+	{
+		//std::cout << "---- IR " << i << std::endl;
+		auto codes = _programs[i]->getCCode();
+		//std::cout << "---- is size " << irs.size() << std::endl;
+		for (const auto& code : codes)
+		{
+			c_code << code << '\n';
+		}
+	}
+
+	c_code << "}";
+	c_code.close();
 }
 
 void Basic::pushFor(std::size_t forLine)

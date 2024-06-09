@@ -39,3 +39,22 @@ void Next::setEndLoop(bool endLoop)
 {
     _endLoop = endLoop;
 }
+
+std::vector<std::string> Next::getIrCode()
+{
+    auto *forProgram = static_cast<For*>(
+        Basic::instance()->getProgramOnLine(_forLine)
+    );
+
+    std::vector<std::string> res;
+    res.push_back("GOTO " + forProgram->getLabel());
+    res.push_back("LABEL " + this->getLabel() + " :");  
+    return res;
+}
+
+std::vector<std::string> Next::getCCode()
+{
+    std::vector<std::string> res;
+    res.push_back("}");
+    return res;
+}

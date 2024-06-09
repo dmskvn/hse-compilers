@@ -10,3 +10,8 @@ ParenExpression::ParenExpression(IExpression *expr)
 double ParenExpression::value() const{
 	return _expr->value();
 }
+
+std::string ParenExpression::getCalculationExpr() const
+{
+	return _expr->getCalculationExpr();
+}

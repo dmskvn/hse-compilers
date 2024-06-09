@@ -10,12 +10,11 @@ class IfThen : public IProgram
 public:
 
 	IfThen(char *lhs, char *op, char *rhs);
-
     void setElse(std::size_t elseLine);
-
 	void setEnd(std::size_t endIfLine);
-
     virtual void exec() override;
+    virtual std::vector<std::string> getIrCode() override;
+	virtual std::vector<std::string> getCCode() override;
 
 private:
 

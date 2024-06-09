@@ -1,6 +1,6 @@
 #include "else.h"
 #include "ifthen.h"
-
+#include "endif.h"
 #include "basic.h"
 
 #include <iostream>
@@ -37,4 +37,25 @@ void Else::exec()
     {
         Basic::instance()->goToProgramOnLine(_endIfLine);
     }
+}
+
+std::vector<std::string> Else::getIrCode()
+{
+    auto endifProgram = static_cast<EndIf*>(Basic::instance()->getProgramOnLine(_endIfLine));
+    auto endifLabel = endifProgram->getLabel();
+    std::vector<std::string> result;
+
+    result.push_back({"GOTO: " + endifLabel});
+    result.push_back({"LABEL " + this->getLabel() + " :"});
+
+    return result;
+}
+
+std::vector<std::string> Else::getCCode()
+{
+    std::vector<std::string> result;
+    result.push_back("}");
+    result.push_back("else");
+    result.push_back("{");
+    return result;
 }

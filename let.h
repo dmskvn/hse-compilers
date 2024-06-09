@@ -11,8 +11,14 @@ public:
 	Let(char *name);
 	Let(char *name, double val);
 	Let(char *name, IExpression *expr);
-	virtual void exec() override;
+
+	void exec() override;
+
+	virtual std::vector<std::string> getIrCode() override;
+	virtual std::vector<std::string> getCCode() override;
+
 	virtual ~Let() override;
+
 	
 private:
 

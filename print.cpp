@@ -19,5 +19,16 @@ void Print::exec()
     //}
     //std::cout << "--------------------------------------------" << std::endl;
 
-    std::cout << "VAR: " << _varname << "=" <<Basic::instance()->getVariableValue(_varname)<< std::endl;
+    std::cout << "VAR: " << _varname << "=" << Basic::instance()->getVariableValue(_varname)<< std::endl;
+}
+
+std::vector<std::string> Print::getIrCode()
+{
+    return {{"PRINT, " + _varname}};
+}
+
+std::vector<std::string> Print::getCCode()
+{
+    std::string d = "printf(\"" + _varname + "=%f\"," + _varname + ");";
+    return {{d}};
 }

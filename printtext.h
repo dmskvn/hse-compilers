@@ -9,8 +9,12 @@ public:
 
 	PrintText(char* text);
 	virtual void exec() override;
+
+	virtual std::vector<std::string> getIrCode() override;
+	virtual std::vector<std::string> getCCode() override;
 	
 private:
+
 	std::string _text;
 };
 

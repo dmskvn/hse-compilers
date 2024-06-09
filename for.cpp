@@ -45,3 +45,28 @@ void For::setNext(std::size_t next)
 {
     _next = next;
 }
+
+std::vector<std::string> For::getCCode()
+{
+    std::vector<std::string> res;
+
+    res.push_back("double " + _varCtrName + " = " + std::to_string(0) + ";");
+    res.push_back("while(" + _varCtrName + "!=" + _varNameEnd + ")");
+    res.push_back("{");
+    res.push_back("++" + _varCtrName + ";");
+    return res;
+
+}
+
+std::vector<std::string> For::getIrCode()
+{
+    std::vector<std::string> res;
+
+    auto* forNextProgram = static_cast<Next*>(
+            Basic::instance()->getProgramOnLine(_next)
+    );
+
+    res.push_back("MOV " + _varCtrName + "," + std::to_string(_ctrValue));
+    res.push_back("CMP <> " + _varCtrName + "," + _varNameEnd + ":" + forNextProgram->getLabel() + "," + "NEXT_INSTRUCTION");
+    return res;
+}

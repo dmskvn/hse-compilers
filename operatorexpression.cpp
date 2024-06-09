@@ -9,11 +9,21 @@ _op(op)
 	//std::cout << "OperatorExpression ctor op " << op << std::endl;
 }
 
-double OperatorExpression::value() const {
+double OperatorExpression::value() const 
+{
 	
 	if (_op == '+') return _lhs->value()+_rhs->value();
 	if (_op == '-') return _lhs->value()-_rhs->value();
 	if (_op == '*') return _lhs->value()*_rhs->value();
 	if (_op == '/') return _lhs->value()/_rhs->value();
 	return 0;
+}
+
+std::string OperatorExpression::getCalculationExpr() const
+{
+	if (_op == '+')  return _lhs->getCalculationExpr() + "+" + _rhs->getCalculationExpr();
+	if (_op == '-') return _lhs->getCalculationExpr()+ "-" + _rhs->getCalculationExpr();
+	if (_op == '*') return _lhs->getCalculationExpr()+ "*" + _rhs->getCalculationExpr();
+	if (_op == '/') return _lhs->getCalculationExpr()+ "/" + _rhs->getCalculationExpr();
+	return "";
 }

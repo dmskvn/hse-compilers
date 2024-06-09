@@ -30,3 +30,9 @@ double DoubleExpression::value() const
     }
     return 0;
 }
+
+std::string DoubleExpression::getCalculationExpr() const
+{
+    //std::cout << " ----- GetCalculationExpr" << _varName << std::endl;
+    return _varName;
+}

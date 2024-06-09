@@ -14,3 +14,13 @@ void PrintText::exec()
 {
     std::cout << _text << std::endl;
 }
+
+std::vector<std::string> PrintText::getIrCode()
+{
+    return {{"PRINT, " + _text}};
+}
+
+std::vector<std::string> PrintText::getCCode()
+{
+    return {{"printf(\"" + _text + "\");"}};
+}

@@ -10,8 +10,10 @@ public:
 	DoubleExpression(double d);
 	DoubleExpression(char *varName);
 	virtual double value() const override;
+	virtual std::string getCalculationExpr() const override;
 	
 private:
+
 	double _d;
 	std::string _varName;
 };

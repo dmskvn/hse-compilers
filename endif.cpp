@@ -39,3 +39,13 @@ EndIf::EndIf()
 
 void EndIf::exec()
 {}
+
+std::vector<std::string> EndIf::getIrCode()
+{
+    return {{"LABEL " + this->getLabel() + " :"}};
+}
+
+std::vector<std::string> EndIf::getCCode()
+{
+    return {{"}"}};
+}
