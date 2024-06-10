@@ -22,5 +22,5 @@ std::vector<std::string> PrintText::getIrCode()
 
 std::vector<std::string> PrintText::getCCode()
 {
-    return {{"printf(\"" + _text + "\");"}};
+    return {{"printf(\"" + _text + "\\n\");"}};
 }

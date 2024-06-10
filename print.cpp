@@ -29,6 +29,6 @@ std::vector<std::string> Print::getIrCode()
 
 std::vector<std::string> Print::getCCode()
 {
-    std::string d = "printf(\"" + _varname + "=%f\"," + _varname + ");";
+    std::string d = "printf(\"" + _varname + "=%f\\n\"," + _varname + ");";
     return {{d}};
 }
